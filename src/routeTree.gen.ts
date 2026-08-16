@@ -10,11 +10,29 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CalculadoraRouteImport } from './routes/calculadora'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as OrcamentoRouteImport } from './routes/orcamento'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculadoraRoute = CalculadoraRouteImport.update({
+  id: '/calculadora',
+  path: '/calculadora',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrcamentoRoute = OrcamentoRouteImport.update({
+  id: '/orcamento',
+  path: '/orcamento',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProdutosRoute = ProdutosRouteImport.update({
@@ -25,27 +43,40 @@ const ProdutosRoute = ProdutosRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calculadora': typeof CalculadoraRoute
+  '/contato': typeof ContatoRoute
+  '/orcamento': typeof OrcamentoRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calculadora': typeof CalculadoraRoute
+  '/contato': typeof ContatoRoute
+  '/orcamento': typeof OrcamentoRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/calculadora': typeof CalculadoraRoute
+  '/contato': typeof ContatoRoute
+  '/orcamento': typeof OrcamentoRoute
   '/produtos': typeof ProdutosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/produtos'
+  fullPaths: '/' | '/calculadora' | '/contato' | '/orcamento' | '/produtos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/produtos'
-  id: '__root__' | '/' | '/produtos'
+  to: '/' | '/calculadora' | '/contato' | '/orcamento' | '/produtos'
+  id:
+    '__root__' | '/' | '/calculadora' | '/contato' | '/orcamento' | '/produtos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CalculadoraRoute: typeof CalculadoraRoute
+  ContatoRoute: typeof ContatoRoute
+  OrcamentoRoute: typeof OrcamentoRoute
   ProdutosRoute: typeof ProdutosRoute
 }
 
@@ -56,6 +87,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculadora': {
+      id: '/calculadora'
+      path: '/calculadora'
+      fullPath: '/calculadora'
+      preLoaderRoute: typeof CalculadoraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orcamento': {
+      id: '/orcamento'
+      path: '/orcamento'
+      fullPath: '/orcamento'
+      preLoaderRoute: typeof OrcamentoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/produtos': {
@@ -70,6 +122,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CalculadoraRoute: CalculadoraRoute,
+  ContatoRoute: ContatoRoute,
+  OrcamentoRoute: OrcamentoRoute,
   ProdutosRoute: ProdutosRoute,
 }
 export const routeTree = rootRouteImport
