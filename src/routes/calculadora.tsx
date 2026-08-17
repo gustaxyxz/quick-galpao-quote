@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Calculator, RotateCcw } from "lucide-react";
 import { PageHero, SiteShell } from "@/components/site/SiteShell";
+import { PecaIcon } from "@/components/site/PecaIcon";
 import { cn } from "@/lib/utils";
 import { whatsappLink } from "@/lib/empresa";
 import {
@@ -109,13 +110,18 @@ function Calculadora() {
                         type="button"
                         onClick={() => setSel((s) => ({ ...s, [key]: valor }))}
                         className={cn(
-                          "rounded-sm border px-4 py-3 text-left text-sm font-semibold transition-colors",
+                          "flex items-center gap-3 rounded-sm border px-4 py-3 text-left text-sm font-semibold transition-colors",
                           ativo
                             ? "border-accent bg-accent/15 text-foreground"
-                            : "border-border hover:border-accent",
+                            : "border-border text-foreground hover:border-accent",
                         )}
                       >
-                        {label}
+                        <PecaIcon
+                          grupo={key}
+                          opcao={valor}
+                          className={ativo ? "text-accent" : "text-muted-foreground"}
+                        />
+                        <span>{label}</span>
                       </button>
                     );
                   })}
