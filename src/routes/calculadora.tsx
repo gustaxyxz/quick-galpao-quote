@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Calculator, RotateCcw } from "lucide-react";
 import { PageHero, SiteShell } from "@/components/site/SiteShell";
+import { PecaIcon } from "@/components/site/PecaIcon";
 import { cn } from "@/lib/utils";
 import { whatsappLink } from "@/lib/empresa";
 import {
@@ -109,13 +110,18 @@ function Calculadora() {
                         type="button"
                         onClick={() => setSel((s) => ({ ...s, [key]: valor }))}
                         className={cn(
-                          "rounded-sm border px-4 py-3 text-left text-sm font-semibold transition-colors",
+                          "flex items-center gap-3 rounded-sm border px-4 py-3 text-left text-sm font-semibold transition-colors",
                           ativo
                             ? "border-accent bg-accent/15 text-foreground"
-                            : "border-border hover:border-accent",
+                            : "border-border text-foreground hover:border-accent",
                         )}
                       >
-                        {label}
+                        <PecaIcon
+                          grupo={key}
+                          opcao={valor}
+                          className={ativo ? "text-accent" : "text-muted-foreground"}
+                        />
+                        <span>{label}</span>
                       </button>
                     );
                   })}
@@ -148,6 +154,17 @@ function Calculadora() {
             ) : (
               <>
                 <p className="mt-4 text-sm text-primary-foreground/70">{descricaoGalpao(sel)}</p>
+                {sel.tesoura ? (
+                  <div className="mt-4 flex items-center gap-3 rounded-sm border border-white/15 bg-white/5 p-3">
+                    <PecaIcon grupo="tesoura" opcao={sel.tesoura} className="text-accent" />
+                    <div className="text-xs text-primary-foreground/70">
+                      <p className="font-display text-sm font-bold uppercase text-primary-foreground">
+                        {LABELS.tesoura[sel.tesoura]}
+                      </p>
+                      {sel.telha ? <p>{LABELS.telha[sel.telha]}</p> : null}
+                    </div>
+                  </div>
+                ) : null}
                 <div className="mt-4 grid grid-cols-3 gap-3 border-y border-white/15 py-4 text-center">
                   {[
                     [`${resultado.area.toFixed(0)} m²`, "área"],
