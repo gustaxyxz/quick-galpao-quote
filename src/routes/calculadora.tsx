@@ -154,6 +154,17 @@ function Calculadora() {
             ) : (
               <>
                 <p className="mt-4 text-sm text-primary-foreground/70">{descricaoGalpao(sel)}</p>
+                {sel.tesoura ? (
+                  <div className="mt-4 flex items-center gap-3 rounded-sm border border-white/15 bg-white/5 p-3">
+                    <PecaIcon grupo="tesoura" opcao={sel.tesoura} className="text-accent" />
+                    <div className="text-xs text-primary-foreground/70">
+                      <p className="font-display text-sm font-bold uppercase text-primary-foreground">
+                        {LABELS.tesoura[sel.tesoura]}
+                      </p>
+                      {sel.telha ? <p>{LABELS.telha[sel.telha]}</p> : null}
+                    </div>
+                  </div>
+                ) : null}
                 <div className="mt-4 grid grid-cols-3 gap-3 border-y border-white/15 py-4 text-center">
                   {[
                     [`${resultado.area.toFixed(0)} m²`, "área"],
