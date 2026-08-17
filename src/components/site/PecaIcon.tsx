@@ -53,8 +53,8 @@ const desenhos: Record<string, Record<string, React.ReactNode>> = {
   coluna: {
     perfil_u: (
       <>
-        <path d="M20 8 H30 V32 H44 V8" transform="translate(0,0)" />
-        <path d="M20 8 V32 H30" />
+        <path d="M20 8 V32 H44 V8" />
+        <path d="M25 8 V27 H39 V8" />
       </>
     ),
     tubo_ret: (
@@ -65,9 +65,7 @@ const desenhos: Record<string, Record<string, React.ReactNode>> = {
     ),
     perfil_w: (
       <>
-        <path d="M18 9 H46 M18 31 H46" />
-        <path d="M32 9 V31" />
-        <path d="M22 9 V11 M42 9 V11 M22 29 V31 M42 29 V31" />
+        <path d="M18 8 H46 V12 H35 V28 H46 V32 H18 V28 H29 V12 H18 Z" />
       </>
     ),
   },
