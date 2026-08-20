@@ -28,6 +28,15 @@ export const PRECOS = {
     perfil_w: 160,
     trelicada: 145,
   },
+  pe_mult: {
+    pe_trelicado: 1.15,
+    pe_trelicado_duplo: 1.3,
+    pe_macico: 1.35,
+    viga_h: 1.45,
+    viga_i: 1.4,
+    tubular_reforcado: 1.2,
+    engastado_simples: 1,
+  },
   terca_6m: {
     c_simples: 85,
     ze_enrigecida: 140,
