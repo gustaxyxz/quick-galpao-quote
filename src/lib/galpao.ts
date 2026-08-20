@@ -269,6 +269,15 @@ export const DESCRICOES: Record<string, Record<string, string>> = {
     perfil_w: "Perfil soldado sob medida para grandes cargas.",
     trelicada: "Coluna em treliça, leve para pés direitos altos.",
   },
+  pe: {
+    engastado_simples: "Coluna direta chumbada na base, sem reforço extra. Galpões baixos.",
+    pe_trelicado: "Pé em treliça: dois banzos ligados por diagonais. Leve e rígido em pé direito alto.",
+    pe_trelicado_duplo: "Treliça com dois planos, resiste vento forte e ponte rolante leve.",
+    pe_macico: "Perfil de alma cheia soldado, visual limpo e alta rigidez.",
+    viga_h: "Viga H laminada, padrão industrial para grandes cargas verticais.",
+    viga_i: "Viga I laminada, boa relação peso x resistência.",
+    tubular_reforcado: "Tubo com chapa de reforço na base, ótimo contra torção.",
+  },
   terca: {
     c_simples: "Perfil C dobrado, apoio padrão da telha.",
     ze_enrigecida: "Perfil Z com abas, permite vãos maiores entre tesouras.",
