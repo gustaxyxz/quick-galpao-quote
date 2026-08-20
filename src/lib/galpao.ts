@@ -457,3 +457,49 @@ export function moeda(valor: number): string {
 export function descricaoGalpao(sel: Selecao): string {
   return `Galpão ${sel.comprimento ?? "?"}m x ${sel.largura ?? "?"}m · pé direito ${sel.pe_direito ?? "?"}m`;
 }
+
+// ---------- Validações ----------
+
+export type Erros = Partial<Record<keyof Selecao, string>>;
+
+const LIMITES = {
+  comprimento: { min: 4, max: 200, label: "Comprimento" },
+  largura: { min: 3, max: 60, label: "Largura" },
+  pe_direito: { min: 2, max: 20, label: "Pé direito" },
+} as const;
+
+export function validarDimensoes(sel: Selecao): Erros {
+  const erros: Erros = {};
+  for (const campo of ["comprimento", "largura", "pe_direito"] as const) {
+    const { min, max, label } = LIMITES[campo];
+    const v = sel[campo];
+    if (v === null || Number.isNaN(v)) erros[campo] = `Informe o ${label.toLowerCase()} em metros.`;
+    else if (v < min) erros[campo] = `${label} mínimo de ${min} m.`;
+    else if (v > max) erros[campo] = `${label} máximo de ${max} m. Fale com a equipe para projetos maiores.`;
+  }
+  return erros;
+}
+
+export const GRUPOS_PECAS = [
+  "tesoura",
+  "coluna",
+  "pe",
+  "telha",
+  "terca",
+  "tirante",
+  "fechamento",
+  "portao",
+  "pintura",
+] as const;
+
+export function validarPecas(sel: Selecao): Erros {
+  const erros: Erros = {};
+  for (const g of GRUPOS_PECAS) {
+    if (!sel[g]) erros[g] = "Escolha uma opção para continuar.";
+  }
+  return erros;
+}
+
+export function validarTudo(sel: Selecao): Erros {
+  return { ...validarDimensoes(sel), ...validarPecas(sel) };
+}
