@@ -174,6 +174,15 @@ export const LABELS = {
     perfil_w: "Perfil W soldado",
     trelicada: "Coluna treliçada",
   },
+  pe: {
+    engastado_simples: "Pé simples engastado",
+    pe_trelicado: "Pé treliçado",
+    pe_trelicado_duplo: "Pé treliçado duplo",
+    pe_macico: "Pé maciço (alma cheia)",
+    viga_h: "Pé em viga H",
+    viga_i: "Pé em viga I",
+    tubular_reforcado: "Pé tubular reforçado",
+  },
   terca: {
     c_simples: "Terça C simples",
     ze_enrigecida: "Terça Z enrijecida",
