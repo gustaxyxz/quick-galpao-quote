@@ -122,6 +122,7 @@ export type Selecao = {
   pe_direito: number | null;
   tesoura: TesouraKey | null;
   coluna: ColunaKey | null;
+  pe: PeKey | null;
   telha: TelhaKey | null;
   terca: TercaKey | null;
   tirante: TiranteKey | null;
