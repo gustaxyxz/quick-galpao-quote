@@ -375,11 +375,14 @@ export function calcular(sel: Selecao): ResultadoCalculo {
     });
   }
   if (sel.coluna) {
+    const multPe = sel.pe ? PRECOS.pe_mult[sel.pe] : 1;
     itens.push({
       chave: "colunas",
-      descricao: "Colunas",
-      detalhe: `${nCol} un · ${PD}m de pé direito · ${LABELS.coluna[sel.coluna]}`,
-      valor: nCol * PD * PRECOS.coluna_pm[sel.coluna],
+      descricao: "Colunas e pés",
+      detalhe: `${nCol} un · ${PD}m de pé direito · ${LABELS.coluna[sel.coluna]}${
+        sel.pe ? ` · ${LABELS.pe[sel.pe]}` : ""
+      }`,
+      valor: nCol * PD * PRECOS.coluna_pm[sel.coluna] * multPe,
     });
   }
   if (sel.terca) {
