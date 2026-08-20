@@ -137,6 +137,7 @@ export const selecaoInicial: Selecao = {
   pe_direito: null,
   tesoura: null,
   coluna: null,
+  pe: null,
   telha: null,
   terca: null,
   tirante: null,
