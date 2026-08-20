@@ -108,6 +108,7 @@ export const PRECOS = {
 
 export type TesouraKey = keyof typeof PRECOS.tesoura_mult;
 export type ColunaKey = keyof typeof PRECOS.coluna_pm;
+export type PeKey = keyof typeof PRECOS.pe_mult;
 export type TercaKey = keyof typeof PRECOS.terca_6m;
 export type TiranteKey = keyof typeof PRECOS.tirante_6m;
 export type TelhaKey = keyof typeof PRECOS.telha_m2;
