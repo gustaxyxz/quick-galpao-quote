@@ -105,23 +105,26 @@ function Calculadora() {
             </div>
           </div>
 
-          {grupos.map(({ key, titulo }, i) => {
+          {grupos.map(({ key, titulo, nota }, i) => {
             const opcoes = Object.entries(LABELS[key]) as [string, string][];
             return (
               <div key={key} className="rounded-sm border border-border bg-card p-6">
                 <h2 className="font-display text-sm font-bold tracking-[0.2em] uppercase text-muted-foreground">
                   {i + 2}. {titulo}
                 </h2>
+                <p className="mt-1 text-xs text-muted-foreground/80">{nota}</p>
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   {opcoes.map(([valor, label]) => {
                     const ativo = sel[key] === valor;
+                    const desc = DESCRICOES[key]?.[valor];
                     return (
                       <button
                         key={valor}
                         type="button"
                         onClick={() => setSel((s) => ({ ...s, [key]: valor }))}
+                        title={desc}
                         className={cn(
-                          "flex items-center gap-3 rounded-sm border px-4 py-3 text-left text-sm font-semibold transition-colors",
+                          "flex items-start gap-3 rounded-sm border px-4 py-3 text-left transition-colors",
                           ativo
                             ? "border-accent bg-accent/15 text-foreground"
                             : "border-border text-foreground hover:border-accent",
@@ -132,7 +135,14 @@ function Calculadora() {
                           opcao={valor}
                           className={ativo ? "text-accent" : "text-muted-foreground"}
                         />
-                        <span>{label}</span>
+                        <span className="min-w-0">
+                          <span className="block text-sm font-semibold leading-tight">{label}</span>
+                          {desc ? (
+                            <span className="mt-1 block text-[11px] leading-snug text-muted-foreground">
+                              {desc}
+                            </span>
+                          ) : null}
+                        </span>
                       </button>
                     );
                   })}
@@ -140,6 +150,7 @@ function Calculadora() {
               </div>
             );
           })}
+
 
           <button
             type="button"
