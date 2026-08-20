@@ -6,6 +6,7 @@ import { PecaIcon } from "@/components/site/PecaIcon";
 import { cn } from "@/lib/utils";
 import { whatsappLink } from "@/lib/empresa";
 import {
+  DESCRICOES,
   LABELS,
   calcular,
   descricaoGalpao,
