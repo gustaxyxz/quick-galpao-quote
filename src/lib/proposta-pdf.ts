@@ -99,7 +99,7 @@ export async function gerarPropostaPDF(sel: Selecao, resultado: ResultadoCalculo
       doc.setFontSize(7.5);
       doc.setTextColor(...CINZA);
       doc.text(
-        [EMPRESA.nome, EMPRESA.cnpj, EMPRESA.endereco].filter(Boolean).join(" · "),
+        [EMPRESA.nome, EMPRESA.endereco, EMPRESA.email].filter(Boolean).join(" · "),
         M,
         PH - 11,
       );
