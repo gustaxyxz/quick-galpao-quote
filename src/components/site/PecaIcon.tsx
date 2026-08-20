@@ -19,6 +19,59 @@ function Frame({ children }: { children: React.ReactNode }) {
 }
 
 const desenhos: Record<string, Record<string, React.ReactNode>> = {
+  pe: {
+    engastado_simples: (
+      <>
+        <path d="M32 6 V32" strokeWidth={2.6} />
+        <path d="M22 34 H42" strokeWidth={2} />
+        <path d="M26 34 L24 38 M38 34 L40 38" />
+      </>
+    ),
+    pe_trelicado: (
+      <>
+        <path d="M26 6 V32 M38 6 V32" />
+        <path d="M26 10 L38 16 M38 10 L26 16 M26 20 L38 26 M38 20 L26 26" />
+        <path d="M20 34 H44" strokeWidth={2} />
+      </>
+    ),
+    pe_trelicado_duplo: (
+      <>
+        <path d="M20 6 V32 M32 6 V32 M44 6 V32" />
+        <path d="M20 10 L32 16 M32 10 L20 16 M32 10 L44 16 M44 10 L32 16" />
+        <path d="M20 22 L32 28 M32 22 L20 28 M32 22 L44 28 M44 22 L32 28" />
+        <path d="M14 34 H50" strokeWidth={2} />
+      </>
+    ),
+    pe_macico: (
+      <>
+        <rect x="27" y="6" width="10" height="26" />
+        <path d="M27 6 H37 M27 32 H37" strokeWidth={2.2} />
+        <path d="M20 34 H44" strokeWidth={2} />
+      </>
+    ),
+    viga_h: (
+      <>
+        <path d="M24 7 H40 M24 31 H40" strokeWidth={2.6} />
+        <path d="M32 7 V31" strokeWidth={2.6} />
+        <path d="M18 34 H46" strokeWidth={2} />
+      </>
+    ),
+    viga_i: (
+      <>
+        <path d="M26 7 H38 M26 31 H38" strokeWidth={2.2} />
+        <path d="M32 7 V31" strokeWidth={1.8} />
+        <path d="M20 34 H44" strokeWidth={2} />
+      </>
+    ),
+    tubular_reforcado: (
+      <>
+        <rect x="28" y="6" width="8" height="24" rx="1" />
+        <path d="M22 30 H42" strokeWidth={2.4} />
+        <path d="M28 30 L24 24 M36 30 L40 24" />
+        <path d="M20 34 H44" strokeWidth={2} />
+      </>
+    ),
+  },
   tesoura: {
     duas_aguas_alma_cheia: (
       <>

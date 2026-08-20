@@ -28,6 +28,15 @@ export const PRECOS = {
     perfil_w: 160,
     trelicada: 145,
   },
+  pe_mult: {
+    pe_trelicado: 1.15,
+    pe_trelicado_duplo: 1.3,
+    pe_macico: 1.35,
+    viga_h: 1.45,
+    viga_i: 1.4,
+    tubular_reforcado: 1.2,
+    engastado_simples: 1,
+  },
   terca_6m: {
     c_simples: 85,
     ze_enrigecida: 140,
@@ -99,6 +108,7 @@ export const PRECOS = {
 
 export type TesouraKey = keyof typeof PRECOS.tesoura_mult;
 export type ColunaKey = keyof typeof PRECOS.coluna_pm;
+export type PeKey = keyof typeof PRECOS.pe_mult;
 export type TercaKey = keyof typeof PRECOS.terca_6m;
 export type TiranteKey = keyof typeof PRECOS.tirante_6m;
 export type TelhaKey = keyof typeof PRECOS.telha_m2;
@@ -112,6 +122,7 @@ export type Selecao = {
   pe_direito: number | null;
   tesoura: TesouraKey | null;
   coluna: ColunaKey | null;
+  pe: PeKey | null;
   telha: TelhaKey | null;
   terca: TercaKey | null;
   tirante: TiranteKey | null;
@@ -126,6 +137,7 @@ export const selecaoInicial: Selecao = {
   pe_direito: null,
   tesoura: null,
   coluna: null,
+  pe: null,
   telha: null,
   terca: null,
   tirante: null,
@@ -161,6 +173,15 @@ export const LABELS = {
     perfil_i: "Perfil I laminado",
     perfil_w: "Perfil W soldado",
     trelicada: "Coluna treliçada",
+  },
+  pe: {
+    engastado_simples: "Pé simples engastado",
+    pe_trelicado: "Pé treliçado",
+    pe_trelicado_duplo: "Pé treliçado duplo",
+    pe_macico: "Pé maciço (alma cheia)",
+    viga_h: "Pé em viga H",
+    viga_i: "Pé em viga I",
+    tubular_reforcado: "Pé tubular reforçado",
   },
   terca: {
     c_simples: "Terça C simples",
@@ -247,6 +268,15 @@ export const DESCRICOES: Record<string, Record<string, string>> = {
     perfil_i: "Perfil laminado, alta capacidade de carga e ponte rolante.",
     perfil_w: "Perfil soldado sob medida para grandes cargas.",
     trelicada: "Coluna em treliça, leve para pés direitos altos.",
+  },
+  pe: {
+    engastado_simples: "Coluna direta chumbada na base, sem reforço extra. Galpões baixos.",
+    pe_trelicado: "Pé em treliça: dois banzos ligados por diagonais. Leve e rígido em pé direito alto.",
+    pe_trelicado_duplo: "Treliça com dois planos, resiste vento forte e ponte rolante leve.",
+    pe_macico: "Perfil de alma cheia soldado, visual limpo e alta rigidez.",
+    viga_h: "Viga H laminada, padrão industrial para grandes cargas verticais.",
+    viga_i: "Viga I laminada, boa relação peso x resistência.",
+    tubular_reforcado: "Tubo com chapa de reforço na base, ótimo contra torção.",
   },
   terca: {
     c_simples: "Perfil C dobrado, apoio padrão da telha.",
@@ -345,11 +375,14 @@ export function calcular(sel: Selecao): ResultadoCalculo {
     });
   }
   if (sel.coluna) {
+    const multPe = sel.pe ? PRECOS.pe_mult[sel.pe] : 1;
     itens.push({
       chave: "colunas",
-      descricao: "Colunas",
-      detalhe: `${nCol} un · ${PD}m de pé direito · ${LABELS.coluna[sel.coluna]}`,
-      valor: nCol * PD * PRECOS.coluna_pm[sel.coluna],
+      descricao: "Colunas e pés",
+      detalhe: `${nCol} un · ${PD}m de pé direito · ${LABELS.coluna[sel.coluna]}${
+        sel.pe ? ` · ${LABELS.pe[sel.pe]}` : ""
+      }`,
+      valor: nCol * PD * PRECOS.coluna_pm[sel.coluna] * multPe,
     });
   }
   if (sel.terca) {
@@ -423,4 +456,50 @@ export function moeda(valor: number): string {
 
 export function descricaoGalpao(sel: Selecao): string {
   return `Galpão ${sel.comprimento ?? "?"}m x ${sel.largura ?? "?"}m · pé direito ${sel.pe_direito ?? "?"}m`;
+}
+
+// ---------- Validações ----------
+
+export type Erros = Partial<Record<keyof Selecao, string>>;
+
+const LIMITES = {
+  comprimento: { min: 4, max: 200, label: "Comprimento" },
+  largura: { min: 3, max: 60, label: "Largura" },
+  pe_direito: { min: 2, max: 20, label: "Pé direito" },
+} as const;
+
+export function validarDimensoes(sel: Selecao): Erros {
+  const erros: Erros = {};
+  for (const campo of ["comprimento", "largura", "pe_direito"] as const) {
+    const { min, max, label } = LIMITES[campo];
+    const v = sel[campo];
+    if (v === null || Number.isNaN(v)) erros[campo] = `Informe o ${label.toLowerCase()} em metros.`;
+    else if (v < min) erros[campo] = `${label} mínimo de ${min} m.`;
+    else if (v > max) erros[campo] = `${label} máximo de ${max} m. Fale com a equipe para projetos maiores.`;
+  }
+  return erros;
+}
+
+export const GRUPOS_PECAS = [
+  "tesoura",
+  "coluna",
+  "pe",
+  "telha",
+  "terca",
+  "tirante",
+  "fechamento",
+  "portao",
+  "pintura",
+] as const;
+
+export function validarPecas(sel: Selecao): Erros {
+  const erros: Erros = {};
+  for (const g of GRUPOS_PECAS) {
+    if (!sel[g]) erros[g] = "Escolha uma opção para continuar.";
+  }
+  return erros;
+}
+
+export function validarTudo(sel: Selecao): Erros {
+  return { ...validarDimensoes(sel), ...validarPecas(sel) };
 }
