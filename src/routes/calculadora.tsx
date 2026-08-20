@@ -33,16 +33,27 @@ export const Route = createFileRoute("/calculadora")({
   component: Calculadora,
 });
 
-type GrupoKey = "tesoura" | "coluna" | "telha" | "terca" | "fechamento" | "portao";
+type GrupoKey =
+  | "tesoura"
+  | "coluna"
+  | "telha"
+  | "terca"
+  | "tirante"
+  | "fechamento"
+  | "portao"
+  | "pintura";
 
-const grupos: { key: GrupoKey; titulo: string }[] = [
-  { key: "tesoura", titulo: "Tipo de tesoura" },
-  { key: "coluna", titulo: "Coluna" },
-  { key: "telha", titulo: "Telha de cobertura" },
-  { key: "terca", titulo: "Terças" },
-  { key: "fechamento", titulo: "Fechamento lateral" },
-  { key: "portao", titulo: "Portão" },
+const grupos: { key: GrupoKey; titulo: string; nota: string }[] = [
+  { key: "tesoura", titulo: "Modelo de estrutura / tesoura", nota: "Define o vão livre e o consumo de aço" },
+  { key: "coluna", titulo: "Coluna", nota: "Perfil que recebe a carga da cobertura" },
+  { key: "telha", titulo: "Telha de cobertura", nota: "Espessura, isolamento e iluminação" },
+  { key: "terca", titulo: "Terças", nota: "Apoiam a telha entre as tesouras" },
+  { key: "tirante", titulo: "Tirantes / contraventamento", nota: "Travamento contra vento e torção" },
+  { key: "fechamento", titulo: "Fechamento lateral", nota: "Quanto das laterais será fechado" },
+  { key: "portao", titulo: "Portão", nota: "Acesso de veículos e empilhadeira" },
+  { key: "pintura", titulo: "Tratamento e pintura", nota: "Proteção contra corrosão" },
 ];
+
 
 function Calculadora() {
   const [sel, setSel] = useState<Selecao>(selecaoInicial);
